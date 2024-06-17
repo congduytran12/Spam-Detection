@@ -19,9 +19,7 @@ Training  80%  |  Validation  10%   |  Testing  10%
 
 
 ## Model Architecture
-The model is fine-tuned RoBERTa base 
-
-roberta-base: https://huggingface.co/roberta-base
+The model is roberta-spam, which is fine-tuned RoBERTa base 
 roberta-spam: https://huggingface.co/mshenoda/roberta-spam
 
 ## Metrics
