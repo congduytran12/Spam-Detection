@@ -13,7 +13,7 @@ The data is split into 80% train, 10% validation, and 10% test sets; the scripts
 
 ### Dataset Class Distribution
 
-Training  80%  |  Validation  10%   |  Testing  10%          
+Training    |  Validation     |  Testing           
 :-------------------------:|:-------------------------:|:-------------------------: 
 ![](plots/train_set_distribution.jpg "Train / Validation Loss") Class Distribution | ![](plots/val_set_distribution.jpg "Class Distribution") Class Distribution | ![](plots/test_set_distribution.jpg "Class Distribution")  Class Distribution
 
