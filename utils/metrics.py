@@ -19,15 +19,15 @@ def compute_metrics(y_true, y_pred, positive_label="spam", negative_label="ham")
     y_true = np.array(y_true)
     y_pred = np.array(y_pred)
     
-    # Calculate accuracy
+    # accuray calculation
     accuracy = np.mean(y_true == y_pred)
     
-    # Calculate true positives, false positives, and false negatives
-    tp = np.sum(y_true == y_pred)  # Count where true positive (both true and predicted labels are the same)
-    fp = np.sum((y_true != y_pred) & (y_pred == positive_label))  # Count where false positive (true label is negative, but predicted as positive)
-    fn = np.sum((y_true != y_pred) & (y_pred == negative_label))  # Count where false negative (true label is positive, but predicted as negative)
+    # true positives, false positives, and false negatives calculation
+    tp = np.sum(y_true == y_pred)  # true positive count (both true and predicted labels are the same)
+    fp = np.sum((y_true != y_pred) & (y_pred == positive_label))  # false positive count (true label is negative, but predicted is positive)
+    fn = np.sum((y_true != y_pred) & (y_pred == negative_label))  # flase negative count (true label is positive, but predicted is negative)
     
-    # Calculate precision, recall, and F1-score
+    # precision, recall, and F1-score calculation
     precision = tp / (tp + fp)
     recall = tp / (tp + fn)
     f1 = 2 * (precision * recall) / (precision + recall)
@@ -47,24 +47,24 @@ def confusion_matrix(y_true, y_pred):
         list of lists: The confusion matrix.
     """
 
-    # Obtain the unique classes from y_true and y_pred
+    # get unique classes from y_true and y_pred
     classes = list(set(y_true + y_pred))
     classes.sort()
 
-    # Calculate the total number of unique classes
+    # total number of unique classes
     num_classes = len(classes)
 
-    # Initialize the confusion matrix as a 2D list of zeros
+    # initialize the confusion matrix as a 2D list of zeros
     cm = [[0] * num_classes for _ in range(num_classes)]
 
-    # Iterate over each pair of true and predicted labels
+    # iterate each pair of true and predicted labels
     for true, pred in zip(y_true, y_pred):
-        # Find the indices of true and predicted classes in the classes list
+        # find indices of true and predicted classes in the classes list
         true_idx = classes.index(true)
         pred_idx = classes.index(pred)
 
-        # Increment the corresponding cell in the confusion matrix
+        # increment corresponding cells in the confusion matrix
         cm[true_idx][pred_idx] += 1
 
-    # Return the confusion matrix
+    # return confusion matrix
     return cm

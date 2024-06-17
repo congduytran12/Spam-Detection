@@ -18,27 +18,27 @@ def plot_heatmap(cm, saveToFile=None, annot=True, fmt="d", cmap="Blues", xtickla
         None
     """
     
-    # Convert the confusion matrix to a NumPy array
+    # convert confusion matrix to numpy array
     cm = np.array(cm)
 
-    # Create a figure and axis for the heatmap
+    # create a figure and axis for the heatmap
     fig, ax = plt.subplots()
 
-    # Plot the heatmap
+    # plot heatmap
     im = ax.imshow(cm, cmap=cmap)
     
-    # Display cell values as annotations
+    # display cell values as annotations
     if annot:
-        # Normalize the colormap to get values between 0 and 1
+        # normalize the colormap to get values from 0 to 1
         norm = Normalize(vmin=cm.min(), vmax=cm.max())
         for i in range(len(cm)):
             for j in range(len(cm[i])):
                 value = cm[i, j]
-                # Determine text color based on cell value
+                # text color based on cell value
                 text_color = 'white' if norm(value) > 0.5 else 'black'  
                 text = ax.text(j, i, format(value, fmt), ha="center", va="center", color=text_color)
 
-    # Set x-axis and y-axis ticks and labels
+    # set axis ticks and labels
     if xticklabels:
         ax.set_xticks(np.arange(len(xticklabels)))
         ax.set_xticklabels(xticklabels)
@@ -46,15 +46,15 @@ def plot_heatmap(cm, saveToFile=None, annot=True, fmt="d", cmap="Blues", xtickla
         ax.set_yticks(np.arange(len(yticklabels)))
         ax.set_yticklabels(yticklabels)
 
-    # Set labels and title
+    # set label and title
     ax.set_xlabel("Predicted")
     ax.set_ylabel("True")
     ax.set_title("Confusion Matrix Heatmap")
 
-    # Add a colorbar
+    # add a colorbar
     cbar = ax.figure.colorbar(im, ax=ax)
 
-    # Show the plot
+    # show the plot
     if(saveToFile is not None):
         plt.savefig(saveToFile)
         

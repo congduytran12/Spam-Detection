@@ -7,7 +7,7 @@ import os
 def split_dataset(filename, train_ratio):
     df = pd.read_csv(filename)
 
-    # Shuffle the dataset
+    # shuffle dataset
     df = df.sample(frac=1, random_state=42).reset_index(drop=True)
 
     train_size = math.floor(len(df) * train_ratio)

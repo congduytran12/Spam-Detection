@@ -1,14 +1,15 @@
 # RoBERTa based Spam Message Detection
-Spam messages frequently carry malicious links or phishing attempts posing significant threats to both organizations and their users. By choosing our RoBERTa-based spam message detection system, organizations can greatly enhance their security infrastructure. Our system effectively detects and filters out spam messages, adding an extra layer of security that safeguards organizations against potential financial losses, legal consequences, and reputational harm.
+Spam messages often contain harmful links or phishing scams, posing serious risks to organizations and their users. Adopting our RoBERTa-based spam detection system can significantly strengthen an organization's security measures. This system proficiently identifies and eliminates spam messages, providing an additional security layer that protects organizations from potential financial losses, legal issues, and damage to their reputation.
 
 ## Dataset
-The dataset is composed of messages labeled by ham or spam, merged from three data sources:
+The dataset consists of messages labeled by spam or ham (not spam), merged from 3 data sources:
 1.	SMS Spam Collection https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset
 2.	Telegram Spam Ham https://huggingface.co/datasets/thehamkercat/telegram-spam-ham/tree/main
 3.	Enron Spam:  https://huggingface.co/datasets/SetFit/enron_spam/tree/main (only used message column and labels)
 
-The prepare script for enron is available at .
-The data is split 80% train 10% validation, and 10% test sets; the scripts used to split and merge of the three data sources are available at: .
+The prepare script for enron is available at https://github.com/congduytran12/Spam-Detection/tree/main/data/enron.
+The prepare script for telegram is available at https://github.com/congduytran12/Spam-Detection/tree/main/data/telegram.
+The data is split into 80% train, 10% validation, and 10% test sets; the scripts used to split and merge of the 3 data sources are available at https://github.com/congduytran12/Spam-Detection/tree/main/data/utils.
 
 ### Dataset Class Distribution
 
@@ -18,11 +19,9 @@ Training  80%  |  Validation  10%   |  Testing  10%
 
 
 ## Model Architecture
-The model is fine tuned RoBERTa base 
+The model is fine-tuned RoBERTa base 
 
 roberta-base: https://huggingface.co/roberta-base
-
-huggingface model:
 roberta-spam: https://huggingface.co/mshenoda/roberta-spam
 
 ## Metrics
@@ -51,12 +50,12 @@ Place all the files in same directory as the following:
 ├─── plots/         contains metrics results and plots   
 ├─── roberta-spam   trained model weights 
 ├─── utils/         contains helper functions
-├─── demo.ipynb     jupyter notebook run the demo 
+├─── demo.ipynb     jupyter notebook ipynb file to run the demo 
 ├─── detector.py    SpamMessageDetector with methods train, evaluate, detect 
 └─── dataset.py     custom dataset class for spam messages
 ```
 
 ## Running Demo
-To run the demo, please run the following Jupyter Notebook: demo.ipynb
+To run the demo, please run the following Jupyter Notebook file: demo.ipynb
 
 

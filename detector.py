@@ -30,19 +30,19 @@ class SpamMessageDetector:
         random_seed(self.seed)
 
         if(val_data_path is None): # no validation dataset, split the given data
-            # Load and preprocess the training data
+            # load and preprocess training data
             data = pd.read_csv(train_data_path)
             text = data['text'].values
             labels = data['label'].values
 
-            # Create the dataset
+            # create dataset
             dataset = SpamMessageDataset(text, labels, self.tokenizer, max_length=self.max_length)
-            # Split the dataset into training and validation sets
+            # split into training and validation sets
             train_size = int(0.8 * len(dataset))
             val_size = len(dataset) - train_size
             train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
         else:
-            # Load and preprocess the training data
+            # load and preprocess training data
             train_data = pd.read_csv(train_data_path)
             train_text = train_data['text'].values
             train_labels = train_data['label'].values
@@ -52,16 +52,16 @@ class SpamMessageDetector:
             val_labels = val_data['label'].values
             val_dataset = SpamMessageDataset(val_text, val_labels, self.tokenizer, max_length=self.max_length)
 
-        # Create data loaders
+        # create data loaders
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
         val_loader = DataLoader(val_dataset, batch_size=batch_size)
 
-        # Define the optimizer
+        # define optimizer
         optimizer = torch.optim.AdamW(self.model.parameters(), lr=learning_rate)
         total_steps = len(train_loader) * num_epochs
         scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=100, num_training_steps=total_steps)
 
-        # Fine-tuning loop
+        # fine-tuning loop
         train_losses = list()
         val_losses = list()
         val_accuracies = list()
@@ -93,13 +93,13 @@ class SpamMessageDetector:
                 optimizer.step()
                 scheduler.step()
                 
-                # Update the progress bar
+                # progress bar update
                 progress_bar.set_postfix({'Training Loss': train_loss / (batch_size * (progress_bar.n + 1))})
             
             train_loss /= len(train_loader)
             train_losses.append(train_loss)
 
-            # Evaluation on the validation set
+            # evaluation on validation set
             self.model.eval()
             val_loss = 0.0
             total_val_loss = 0.0
@@ -135,10 +135,10 @@ class SpamMessageDetector:
                 val_f1_scores.append(val_f1)
                 val_accuracies.append(val_accuracy)
 
-            # Print the metrics and confusion matrix for each epoch
+            # print metrics and confusion matrix for each epoch
             print(f'Epoch {epoch + 1}/{num_epochs} - Train Loss: {train_loss:.4f} - Val Loss: {val_loss:.4f} - Val Accuracy: {val_accuracy:.4f} - Val Precision: {val_precision:.4f} - Val Recall: {val_recall:.4f}')
         
-        # Plots data
+        # data plot
         save_list_to_file(train_losses, "plots/train_losses.txt")
         save_list_to_file(val_losses, "plots/val_losses.txt")
         save_list_to_file(val_accuracies, "plots/val_accuracies.txt")
@@ -146,7 +146,7 @@ class SpamMessageDetector:
         save_list_to_file(val_recalls, "plots/val_recalls.txt")
         save_list_to_file(val_f1_scores, "plots/val_f1_scores.txt")
 
-        # Plots
+        # plots
         plt.figure(figsize=(10, 6))
         plt.plot(train_losses, label='Training Loss')
         plt.plot(val_losses, label='Validation Loss')
@@ -177,7 +177,7 @@ class SpamMessageDetector:
     def evaluate(self, dataset_path):
         random_seed(self.seed)
 
-        # Load and preprocess the dataset
+        # load and preprocess dataset
         dataset = pd.read_csv(dataset_path)
         texts = dataset["text"].tolist()
         labels = dataset["label"].tolist()
@@ -195,7 +195,7 @@ class SpamMessageDetector:
 
         inputs = [preprocess(text) for text in texts]
 
-        # Make predictions on the dataset
+        # make predictions
         predictions = []
         with torch.no_grad():
             for input_ids, attention_mask in inputs:
@@ -210,17 +210,17 @@ class SpamMessageDetector:
         # compute evaluation metrics
         accuracy, precision, recall, f1 = compute_metrics(labels, predictions)
 
-        # Create confusion matrix
+        # confusion matrix
         cm = confusion_matrix(labels, predictions)
         labels_sorted = sorted(set(labels))
 
-        # Print evaluation metrics
+        # evaluation metrics
         print(f"Accuracy: {accuracy:.4f}")
         print(f"Precision: {precision:.4f}")
         print(f"Recall: {recall:.4f}")
         print(f"F1 Score: {f1:.4f}")
 
-        # Plot the confusion matrix
+        # plot confusion matrix
         plot_heatmap(cm, saveToFile="plots/confusion_matrix.png", annot=True, fmt="d", cmap="Blues", xticklabels=labels_sorted, yticklabels=labels_sorted)
     
     def detect(self, text):
