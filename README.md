@@ -19,15 +19,15 @@ Training    |  Validation     |  Testing
 
 
 ## Model Architecture
-The model is roberta-spam, which is fine-tuned RoBERTa base 
-roberta-spam: https://huggingface.co/mshenoda/roberta-spam
+The model  is fine-tuned RoBERTa base: 
+roberta-base: https://huggingface.co/roberta-base
 
 ## Metrics
 Loss    |  Accuracy      |  Precision / Recall     |    Confusion Matrix          
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------: 
 ![](plots/train_validation_loss.jpg "Train / Validation Loss") Train / Validation | ![](plots/validation_accuracy.jpg "Validation Accuracy") Validation | ![](plots/validation_precision_recall.jpg "Validation Precision / Recall")  Validation | ![](plots/confusion_matrix.png "confusion_matrix")  Testing Set
 
-## Required Packages
+## Required Dependencies
 - numpy
 - torch
 - transformers
@@ -42,7 +42,6 @@ pip install -r requirements.txt
 ```
 
 ## Directory Structure
-Place all the files in same directory as the following:
 ```
 ├─── data/          contains csv data files
 ├─── plots/         contains metrics results and plots   
@@ -54,6 +53,6 @@ Place all the files in same directory as the following:
 ```
 
 ## Running Demo
-To run the demo, please run the following Jupyter Notebook file: demo.ipynb
+To run the demo, please run the following file: demo.ipynb
 
 
