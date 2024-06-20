@@ -52,6 +52,9 @@ pip install -r requirements.txt
 └─── dataset.py     custom dataset class for spam messages
 ```
 
+## Downloading model
+To download the RoBERTa model, please follow this Google Drive link: https://drive.google.com/drive/folders/1xU3fmJUO2oHHRfa1NBr6HarM7tWeGmOk
+
 ## Running Demo
 To run the demo, please run the following file: demo.ipynb
 
